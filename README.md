@@ -6,7 +6,6 @@
 나이스 교육정보 개방 포털의 OpenAPI를 쉽게 사용할 수 있도록 도와주는 라이브러리입니다.
 
 ## 설치
-
 ```gradle
 repositories {
     maven("https://jitpack.io")
@@ -18,7 +17,13 @@ dependencies {
 ```
 
 ## 사용법
+### KEY 설정
+[나이스 교육정보 개방 포털](https://open.neis.go.kr/portal/mainPage.do)에서 발급받은 인증키를 설정해주세요.
 
+KEY를 설정하지 않으면 받을 수 있는 결과가 5개로 제한됩니다.
+```kotlin
+NEIS.KEY = "인증키"
+```
 ### 학교 검색
 List<[School](#school)>
 #### 학교 이름으로 검색
@@ -48,7 +53,7 @@ school.getMajors()
 ```
 
 ### 학교 급식 정보
-List<[Major](#major)>
+List<[Meal](#meal)>
 
 ```kotlin
 val officeCode = "B10"
