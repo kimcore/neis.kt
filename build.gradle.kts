@@ -23,6 +23,13 @@ dependencies {
     implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.4.1")
 }
 
+tasks {
+    compileJava {
+        sourceCompatibility = "11"
+        targetCompatibility = "11"
+    }
+}
+
 val sourcesJar by tasks.registering(Jar::class) {
     archiveClassifier.set("sources")
     from(sourceSets.main.get().allSource)
