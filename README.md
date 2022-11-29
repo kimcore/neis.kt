@@ -67,7 +67,7 @@ val date = LocalDate.now()
 NEIS.getMeals(officeCode, schoolCode, type, date)
 
 // School 객체가 있다면
-school.getMajors(type, date)
+school.getMeals(type, date)
 ```
 
 ### 학교 시간표 정보
