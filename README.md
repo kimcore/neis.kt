@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.kimcore", "neis.kt", "1.0")
+    implementation("com.github.kimcore", "neis.kt", "1.1")
 }
 ```
 
