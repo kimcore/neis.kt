@@ -28,9 +28,6 @@ val sourcesJar by tasks.registering(Jar::class) {
     from(sourceSets.main.get().allSource)
 }
 
-@Suppress("UNCHECKED_CAST")
-val envMap = env as MutableMap<String, String>
-
 publishing {
     publications {
         create<MavenPublication>("neis.kt") {
