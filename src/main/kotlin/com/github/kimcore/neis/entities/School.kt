@@ -19,7 +19,7 @@ data class School(
     @SerialName("SCHUL_NM")
     val name: String,
     @SerialName("ENG_SCHUL_NM")
-    val nameEn: String,
+    val nameEn: String?,
     @SerialName("SCHUL_KND_SC_NM")
     private val typeText: String,
     @SerialName("ORG_RDNMA")

@@ -12,7 +12,7 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.kimcore", "neis.kt", "1.1")
+    implementation("com.github.kimcore", "neis.kt", "1.2")
 }
 ```
 
@@ -107,7 +107,7 @@ School(
     officeName = "서울특별시교육청",
     code = "7010083",
     name = "서울고등학교",
-    nameEn = "Seoul High School",
+    nameEn = "Seoul High School", // Nullable
     type = SchoolType.HIGH,
     location = "서울특별시 서초구 효령로 197",
     businessType = "일반계",
