@@ -23,13 +23,13 @@ data class Timetable(
     @SerialName("ALL_TI_YMD")
     private val dateText: String,
     @SerialName("ORD_SC_NM")
-    val order: String,
+    val order: String?,
     @SerialName("DDDEP_NM")
-    val major: String,
+    val major: String?,
     @SerialName("GRADE")
     private val gradeText: String,
     @SerialName("CLASS_NM")
-    private val classNumberText: String,
+    private val classNumberText: String?,
     @SerialName("CLRM_NM")
     val classroom: String,
     @SerialName("PERIO")
@@ -50,7 +50,7 @@ data class Timetable(
     val grade = gradeText.toInt()
 
     @Transient
-    val classNumber = classNumberText.toInt()
+    val classNumber = classNumberText?.toInt()
 
     @Transient
     val period = periodText.toInt()

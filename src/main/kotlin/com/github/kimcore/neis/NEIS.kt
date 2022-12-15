@@ -37,11 +37,11 @@ object NEIS {
         }
     }
 
-    suspend fun searchSchoolByCode(officeCode: String, schoolCode: String): List<School> {
+    suspend fun searchSchoolByCode(officeCode: String, schoolCode: String): School? {
         return searchSchool {
             parameter("ATPT_OFCDC_SC_CODE", officeCode)
             parameter("SD_SCHUL_CODE", schoolCode)
-        }
+        }.firstOrNull()
     }
 
     private suspend fun searchSchool(builder: HttpRequestBuilder.() -> Unit): List<School> {
@@ -127,7 +127,7 @@ object NEIS {
                 builder()
             }.body()
         } catch (t: Throwable) {
-            throw NEISException("$endpoint 엔드포인트에 요청을 보내던 중 오류가 발생했습니다.", t)
+            throw NEISException("$endpoint 엔드포인트에 요청을 보내던 중 오류가 발생했습니다.", null, t)
         }
     }
 
@@ -138,7 +138,7 @@ object NEIS {
                 JSON.decodeFromString<T>(jsonObject.toString()).apply { raw = jsonObject }
             } ?: emptyList()
         } catch (t: Throwable) {
-            throw NEISException("$endpoint 엔드포인트의 데이터를 파싱하던 중 오류가 발생했습니다.", t)
+            throw NEISException("$endpoint 엔드포인트의 데이터를 파싱하던 중 오류가 발생했습니다.", this, t)
         }
     }
 }

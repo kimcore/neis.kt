@@ -25,7 +25,7 @@ data class School(
     @SerialName("ORG_RDNMA")
     val location: String,
     @SerialName("HS_GNRL_BUSNS_SC_NM")
-    val businessType: String,
+    val businessType: String?,
     @SerialName("HMPG_ADRES")
     val homepageUrl: String
 ) : NEISEntity() {

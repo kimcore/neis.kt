@@ -1,3 +1,5 @@
 package com.github.kimcore.neis.entities
 
-class NEISException(message: String, cause: Throwable) : Throwable(message, cause)
+import kotlinx.serialization.json.JsonObject
+
+class NEISException(message: String, json: JsonObject?, cause: Throwable) : Throwable(message, cause)
