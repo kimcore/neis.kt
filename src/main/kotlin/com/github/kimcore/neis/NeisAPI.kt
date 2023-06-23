@@ -15,10 +15,15 @@ import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAccessor
 
-object NEIS {
-    var KEY: String? = null
-    private val JSON = Json { ignoreUnknownKeys = true }
-    internal val dateFormat = DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneId.of("Asia/Seoul"))
+@Suppress("unused")
+class NeisAPI(
+    val key: String? = null,
+) {
+    companion object {
+        internal val dateFormat = DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneId.of("Asia/Seoul"))
+    }
+
+    private val json = Json { ignoreUnknownKeys = true }
     private val client = HttpClient(CIO) {
         defaultRequest {
             url("https://open.neis.go.kr/hub/")
@@ -26,7 +31,7 @@ object NEIS {
         install(ContentNegotiation) {
             register(
                 ContentType.Any,
-                KotlinxSerializationConverter(JSON)
+                KotlinxSerializationConverter(json)
             )
         }
     }
@@ -121,8 +126,8 @@ object NEIS {
         try {
             return client.get(endpoint) {
                 accept(ContentType.Any)
-                if (KEY != null)
-                    parameter("Key", KEY)
+                if (key != null)
+                    parameter("Key", key)
                 parameter("Type", "json")
                 builder()
             }.body()
@@ -135,7 +140,10 @@ object NEIS {
         try {
             return this[endpoint]?.jsonArray?.get(1)?.jsonObject?.get("row")?.jsonArray?.map {
                 val jsonObject = it.jsonObject
-                JSON.decodeFromString<T>(jsonObject.toString()).apply { raw = jsonObject }
+                json.decodeFromString<T>(jsonObject.toString()).apply {
+                    neis = this@NeisAPI
+                    raw = jsonObject
+                }
             } ?: emptyList()
         } catch (t: Throwable) {
             throw NEISException("$endpoint 엔드포인트의 데이터를 파싱하던 중 오류가 발생했습니다.", this, t)

@@ -1,6 +1,6 @@
 package com.github.kimcore.neis.entities
 
-import com.github.kimcore.neis.NEIS.dateFormat
+import com.github.kimcore.neis.NeisAPI.Companion.dateFormat
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient

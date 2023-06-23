@@ -1,6 +1,6 @@
 package com.github.kimcore.neis.entities
 
-import com.github.kimcore.neis.NEIS.dateFormat
+import com.github.kimcore.neis.NeisAPI.Companion.dateFormat
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Transient
@@ -35,7 +35,7 @@ data class Timetable(
     @SerialName("PERIO")
     private val periodText: String,
     @SerialName("ITRT_CNTNT")
-    val content: String
+    val content: String = ""
 ) : NEISEntity() {
     @Transient
     val date: LocalDate = LocalDate.from(dateFormat.parse(dateText))

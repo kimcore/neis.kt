@@ -1,6 +1,5 @@
 package com.github.kimcore.neis.entities
 
-import com.github.kimcore.neis.NEIS
 import com.github.kimcore.neis.endOfWeek
 import com.github.kimcore.neis.startOfWeek
 import kotlinx.serialization.SerialName
@@ -31,13 +30,13 @@ data class School(
 ) : NEISEntity() {
     @Transient
     val type: SchoolType = SchoolType.from(typeText)
-    suspend fun getMajors() = NEIS.getMajors(officeCode, code)
+    suspend fun getMajors() = neis.getMajors(officeCode, code)
     suspend fun getMeals(
         type: MealType = MealType.ALL,
         date: TemporalAccessor? = null,
         from: TemporalAccessor? = null,
         to: TemporalAccessor? = null
-    ) = NEIS.getMeals(officeCode, code, type, date, from, to)
+    ) = neis.getMeals(officeCode, code, type, date, from, to)
 
     suspend fun getTimetable(
         from: TemporalAccessor = startOfWeek(),
@@ -45,7 +44,7 @@ data class School(
         grade: Int? = null,
         classNumber: Int? = null,
         major: String? = null
-    ) = NEIS.getTimetable(officeCode, code, type, from, to, grade, classNumber, major)
+    ) = neis.getTimetable(officeCode, code, type, from, to, grade, classNumber, major)
 
     override fun toString(): String {
         return "School(officeCode=$officeCode, officeName=$officeName, code=$code, name=$name, nameEn=$nameEn, type=$type, location=$location, businessType=$businessType, homepageUrl=$homepageUrl)"

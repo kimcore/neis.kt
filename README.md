@@ -12,17 +12,18 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.kimcore", "neis.kt", "1.2")
+    implementation("com.github.kimcore", "neis.kt", "1.5")
 }
 ```
 
 ## 사용법
-### KEY 설정
+### NeisAPI 인스턴스 생성
 [나이스 교육정보 개방 포털](https://open.neis.go.kr/portal/mainPage.do)에서 발급받은 인증키를 설정해주세요.
 
 KEY를 설정하지 않으면 받을 수 있는 결과가 5개로 제한됩니다.
 ```kotlin
-NEIS.KEY = "인증키"
+val KEY = "인증키"
+val neis = NeisAPI(KEY)
 ```
 ### 학교 검색
 List<[School](#school)>
@@ -30,14 +31,14 @@ List<[School](#school)>
 ```kotlin
 val schoolName = "서울고등학교"
 
-NEIS.searchSchool(schoolName)
+neis.searchSchool(schoolName)
 ```
 #### 학교 코드로 검색
 ```kotlin
 val officeCode = "B10"
 val schoolCode = "7010083"
 
-NEIS.searchSchoolByCode(officeCode, schoolCode)
+neis.searchSchoolByCode(officeCode, schoolCode)
 ```
 
 ### 학교 학과 정보
@@ -46,7 +47,7 @@ List<[Major](#major)>
 val officeCode = "B10"
 val schoolCode = "7010083"
 
-NEIS.getMajors(officeCode, schoolCode)
+neis.getMajors(officeCode, schoolCode)
 
 // School 객체가 있다면
 school.getMajors()
@@ -64,7 +65,7 @@ val date = LocalDate.now()
 // val from = LocalDate.of(2022, 11, 21)
 // val to = LocalDate.of(2022, 11, 27)
 
-NEIS.getMeals(officeCode, schoolCode, type, date)
+neis.getMeals(officeCode, schoolCode, type, date)
 
 // School 객체가 있다면
 school.getMeals(type, date)
@@ -87,7 +88,7 @@ val grade = 1
 val classNumber = 1
 // val major = "연극영화과"
 
-NEIS.getTimetable(officeCode, schoolCode, schoolType, from, to, grade, classNumber)
+neis.getTimetable(officeCode, schoolCode, schoolType, from, to, grade, classNumber)
 
 // School 객체가 있다면
 school.getTimetable(from, to, grade, classNumber)
