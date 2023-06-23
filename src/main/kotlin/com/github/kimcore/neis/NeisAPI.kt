@@ -23,7 +23,10 @@ class NeisAPI(
         internal val dateFormat = DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneId.of("Asia/Seoul"))
     }
 
-    private val json = Json { ignoreUnknownKeys = true }
+    private val json = Json {
+        ignoreUnknownKeys = true
+        coerceInputValues = true
+    }
     private val client = HttpClient(CIO) {
         defaultRequest {
             url("https://open.neis.go.kr/hub/")
