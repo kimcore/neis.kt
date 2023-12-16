@@ -1,9 +1,14 @@
 package com.github.kimcore.neis
 
+import kotlinx.serialization.json.Json
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.*
 
+internal val json = Json {
+    ignoreUnknownKeys = true
+    coerceInputValues = true
+}
 private val calendar: Calendar
     get() = Calendar.getInstance(TimeZone.getTimeZone("Asia/Seoul"))
 private val zone = ZoneId.of("Asia/Seoul")

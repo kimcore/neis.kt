@@ -3,30 +3,29 @@ package com.github.kimcore.neis
 import com.github.kimcore.neis.entities.*
 import io.ktor.client.*
 import io.ktor.client.call.*
+import io.ktor.client.engine.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
 import io.ktor.http.*
 import io.ktor.serialization.kotlinx.*
-import kotlinx.serialization.decodeFromString
-import kotlinx.serialization.json.*
+import kotlinx.serialization.json.JsonObject
+import kotlinx.serialization.json.jsonArray
+import kotlinx.serialization.json.jsonObject
 import java.time.ZoneId
 import java.time.format.DateTimeFormatter
 import java.time.temporal.TemporalAccessor
 
 @Suppress("unused")
 class NeisAPI(
-    val key: String? = null
+    val key: String? = null,
+    clientEngine: HttpClientEngine? = null
 ) {
     companion object {
         internal val dateFormat = DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneId.of("Asia/Seoul"))
     }
 
-    private val json = Json {
-        ignoreUnknownKeys = true
-        coerceInputValues = true
-    }
-    private val client = HttpClient {
+    private val config: HttpClientConfig<*>.() -> Unit = {
         defaultRequest {
             url("https://open.neis.go.kr/hub/")
         }
@@ -37,6 +36,8 @@ class NeisAPI(
             )
         }
     }
+
+    private val client = if (clientEngine != null) HttpClient(clientEngine, config) else HttpClient(config)
 
     suspend fun searchSchool(schoolName: String): List<School> {
         return searchSchool {
@@ -138,7 +139,7 @@ class NeisAPI(
         }
     }
 
-    private inline fun <reified T: NEISEntity> JsonObject.decodeRow(endpoint: String): List<T> {
+    private inline fun <reified T : NEISEntity> JsonObject.decodeRow(endpoint: String): List<T> {
         try {
             return this[endpoint]?.jsonArray?.get(1)?.jsonObject?.get("row")?.jsonArray?.map {
                 val jsonObject = it.jsonObject
