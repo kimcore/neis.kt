@@ -12,7 +12,8 @@ repositories {
 }
 
 dependencies {
-    implementation("com.github.kimcore", "neis.kt", "1.5")
+    implementation("com.github.kimcore", "neis.kt", "1.6")
+    implementation("io.ktor", "ktor-client-cio", ktorVersion) // ktor.io 에서 최신 버전을 확인해주세요
 }
 ```
 

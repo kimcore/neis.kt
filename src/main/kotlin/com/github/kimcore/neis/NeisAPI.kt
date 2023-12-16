@@ -3,7 +3,6 @@ package com.github.kimcore.neis
 import com.github.kimcore.neis.entities.*
 import io.ktor.client.*
 import io.ktor.client.call.*
-import io.ktor.client.engine.cio.*
 import io.ktor.client.plugins.*
 import io.ktor.client.plugins.contentnegotiation.*
 import io.ktor.client.request.*
@@ -17,7 +16,7 @@ import java.time.temporal.TemporalAccessor
 
 @Suppress("unused")
 class NeisAPI(
-    val key: String? = null,
+    val key: String? = null
 ) {
     companion object {
         internal val dateFormat = DateTimeFormatter.ofPattern("yyyyMMdd").withZone(ZoneId.of("Asia/Seoul"))
@@ -27,7 +26,7 @@ class NeisAPI(
         ignoreUnknownKeys = true
         coerceInputValues = true
     }
-    private val client = HttpClient(CIO) {
+    private val client = HttpClient {
         defaultRequest {
             url("https://open.neis.go.kr/hub/")
         }

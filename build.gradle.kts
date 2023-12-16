@@ -1,11 +1,11 @@
 plugins {
     `maven-publish`
-    kotlin("jvm") version "1.7.21"
-    kotlin("plugin.serialization") version "1.7.21"
+    kotlin("jvm") version "1.9.21"
+    kotlin("plugin.serialization") version "1.9.21"
 }
 
 group = "com.github.kimcore"
-version = "1.5"
+version = "1.6"
 
 repositories {
     mavenCentral()
@@ -14,13 +14,15 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
-    implementation("io.ktor", "ktor-client", "2.1.3")
-    implementation("io.ktor", "ktor-client-cio", "2.1.3")
-    implementation("io.ktor", "ktor-client-serialization", "2.1.3")
-    implementation("io.ktor", "ktor-client-content-negotiation", "2.1.3")
-    implementation("io.ktor", "ktor-serialization", "2.1.3")
-    implementation("io.ktor", "ktor-serialization-kotlinx-json", "2.1.3")
-    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", "1.4.1")
+    val ktorVersion = "2.3.7"
+    implementation("io.ktor", "ktor-client", ktorVersion)
+    implementation("io.ktor", "ktor-client-serialization", ktorVersion)
+    implementation("io.ktor", "ktor-client-content-negotiation", ktorVersion)
+    implementation("io.ktor", "ktor-serialization", ktorVersion)
+    implementation("io.ktor", "ktor-serialization-kotlinx-json", ktorVersion)
+
+    val serializationVersion = "1.6.2"
+    implementation("org.jetbrains.kotlinx", "kotlinx-serialization-json", serializationVersion)
 }
 
 tasks {
