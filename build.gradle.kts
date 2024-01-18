@@ -14,7 +14,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib-jdk8"))
 
-    val ktorVersion = "2.3.7"
+    val ktorVersion = "3.0.0-beta-1"
     implementation("io.ktor", "ktor-client", ktorVersion)
     implementation("io.ktor", "ktor-client-serialization", ktorVersion)
     implementation("io.ktor", "ktor-client-content-negotiation", ktorVersion)
